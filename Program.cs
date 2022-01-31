@@ -64,20 +64,27 @@ namespace Assignment_1
         {
             try
             {
+                // write your code here
                 int len = s.Length;
                 if (len > 10000)//user defined exceptions
                 {
                     Console.WriteLine("Lenght of input string should be less than " + len);
                 }
                 String final_string = "";
-                //looking for characters which are not unique
-                foreach (char z in s)
+                for (int i = 0; i < s.Length; i++)//looking for characters which are equal
                 {
-                    if (z != 'a' & z != 'e' & z != 'i' & z != 'o' & z != 'u' & z != 'A' & z != 'E' & z != 'I' & z != 'O' & z != 'U')
+                    if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')
                     {
-                        final_string = final_string + z;
+                        final_string = final_string + "";
                     }
+                    else if (s[i] == 'A' || s[i] == 'E' || s[i] == 'I' || s[i] == 'O' || s[i] == 'U')
+                    {
+                        final_string = final_string + "";
+                    }
+                    else
+                        final_string = final_string + s[i];
                 }
+
 
                 return final_string;
             }
@@ -87,19 +94,26 @@ namespace Assignment_1
             }
 
         }
+
         private static bool ArrayStringsAreEqual(string[] bulls_string1, string[] bulls_string2)
         {
             try
             {
-                //comparing the arrays while joining
-                if (string.Join("", bulls_string1) == string.Join("", bulls_string2))
+                // write your code here.
+                string s1 = "";
+                string s2 = "";
+                for (int i = 0; i < bulls_string1.Length; i++)//adding values to strings
                 {
+                    s1 = s1 + bulls_string1[i];
+                }
+                for (int i = 0; i < bulls_string2.Length; i++)
+                {
+                    s2 = s2 + bulls_string2[i];
+                }
+                if (s1 == s2)//if strings are equal
                     return true;
-                }
                 else
-                {
                     return false;
-                }
             }
             catch (Exception)
             {
@@ -108,6 +122,7 @@ namespace Assignment_1
             }
 
         }
+
         private static int SumOfUnique(int[] bull_bucks)
         {
             try
@@ -126,22 +141,22 @@ namespace Assignment_1
                     }
                 }
                 int sum = 0;
-                int len = bull_bucks.Length;
-                foreach (int a in bull_bucks)
+                int length = bull_bucks.Length;
+                foreach (int w in bull_bucks)//overwriting the value of b
                 {
-                    int count = 0;
-                    //overwriting the value of count inside the for loop
-                    for (int i = 0; i < len; i++)
+                    int b = 0;
+                    int i = 0;
+                    while (i < length)
                     {
-                        if (a == bull_bucks[i])
+                        if (w == bull_bucks[i])
                         {
-                            count = count + 1;
+                            b = b + 1;
                         }
+                        i++;
                     }
-                    //count value will be 1 when the integers are not equal.
-                    if (count == 1)
+                    if (b == 1)// when the value of b is 1
                     {
-                        sum = sum + a;
+                        sum = sum + w;
                     }
                 }
                 return sum;
@@ -152,38 +167,39 @@ namespace Assignment_1
                 throw;
             }
         }
+
         private static int DiagonalSum(int[,] bulls_grid)
         {
             try
             {
-                int k = bulls_grid.Length;
-                //sqaure root of total length of array will be the matrix
-                int n = Convert.ToInt32(Math.Sqrt(k));
-                int sum = 0;
-                //the values of diagonal indexes are added
-                for (int i = 0; i < n; i++)
+                int j = bulls_grid.Length;
+                int r = Convert.ToInt32(Math.Sqrt(j));
+                int diagsum = 0;
+                int i = 0;
+                do//the values of diagonal indexes are added
                 {
-                    sum = sum + bulls_grid[i, i] + bulls_grid[i, n - i - 1];
-                }
-                //subtracting repeated value for odd matrix
-                if (n % 2 != 0)
+                    diagsum = diagsum + bulls_grid[i, i] + bulls_grid[i, r - i - 1];
+                    i++;
+                } while (i < r);
+                if (r % 2 != 0) //subtracting repeated value for odd matrix
                 {
-                    return sum - bulls_grid[(n - 1) / 2, (n - 1) / 2];
+                    return diagsum - bulls_grid[(r - 1) / 2, (r - 1) / 2];
                 }
                 else
                 {
-                    return sum;
+                    return diagsum;
                 }
 
             }
-            catch (Exception e)
+            catch (Exception g)
             {
 
-                Console.WriteLine("An error occured: " + e.Message);
+                Console.WriteLine("An error occured: " + g.Message);
                 throw;
             }
 
         }
+
         private static string RestoreString(string bulls_string, int[] indices)
         {
             try
@@ -212,27 +228,31 @@ namespace Assignment_1
                         Console.WriteLine("Value in indices is exceeding the number of characters in the string");
                     }
                 }
-                string[] x = new string[bulls_string.Length];
-                string z = "";
-                //comparing bulls_string with new indexes of x
-                for (int i = 0; i < bulls_string.Length; i++)
+                string[] p = new string[bulls_string.Length];
+                string f = "";
+                int o = 0;
+                do//comparing bulls_string with new indexes of p
                 {
-                    int y = indices[i];
-                    x[y] = Convert.ToString(bulls_string[i]);
-                }
-                for (int i = 0; i < bulls_string.Length; i++)
+                    int j = indices[o];
+                    p[j] = Convert.ToString(bulls_string[o]);
+                    o++;
+                } while (o < bulls_string.Length);
+                o = 0;
+                do
                 {
-                    z = z + x[i];
-                }
-                return z;
+                    f = f + p[o];
+                    o++;
+                } while (o < bulls_string.Length);
+                return f;
             }
-            catch (Exception e)
+            catch (Exception l)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(l.Message);
                 throw;
             }
 
         }
+
         private static string ReversePrefix(string bulls_string6, char ch)
         {
             try
@@ -246,23 +266,24 @@ namespace Assignment_1
                 {
                     Console.WriteLine("Lenght of input string should be less than " + len);
                 }
-                string[] x = new string[bulls_string6.Length];
-                //at char ch splitting it
-                for (int i = 0; i < bulls_string6.Length; i++)
+                string[] h = new string[bulls_string6.Length];
+                int e = 0;
+                do
                 {
-                    if (bulls_string6[i] == ch)
+                    if (bulls_string6[e] == ch)//at char ch splitting it
                     {
-                        x = bulls_string6.Split(ch);
+                        h = bulls_string6.Split(ch);
                     }
-                }
+                    e++;
+                } while (e < bulls_string6.Length);
                 string y = "";
-                //reversing the string while decrementing
-                for (int j = x[0].Length - 1; j >= 0; j--)
+                int u = h[0].Length - 1;
+                do//reversing the string while decrementing
                 {
-                    y = y + bulls_string6[j];
-                }
-                //concatenating
-                string prefix_string = ch + y + x[1];
+                    y = y + bulls_string6[u];
+                    u--;
+                } while (u >= 0);
+                string prefix_string = ch + y + h[1];
                 return prefix_string;
             }
             catch (Exception)
@@ -272,5 +293,6 @@ namespace Assignment_1
             }
 
         }
+
     }
 }
